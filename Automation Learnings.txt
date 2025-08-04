@@ -1,7 +1,11 @@
 ﻿Ruby : 
 
 
+<<<<<<< HEAD
            Ruby is a readable and developer-friendly language that's easy to understand. In Ruby, we don't need to declare data types explicitly—we just assign values to variables, and the language automatically understands the type.
+=======
+Ruby is a readable and developer-friendly language that's easy to understand. In Ruby, we don't need to declare data types explicitly—we just assign values to variables, and the language automatically understands the type.
+>>>>>>> fce9440 (Initial commit)
 
 
   Ruby Syntax:
@@ -557,4 +561,9 @@ In Ruby:
 
             * rspec is a gem → helps you write test cases
 Bundler:
+<<<<<<< HEAD
 Bundler is like a package manager that manages all your gems together for a project.
+=======
+Bundler is like a package manager that manages all your gems together for a project.
+
+>>>>>>> fce9440 (Initial commit)
