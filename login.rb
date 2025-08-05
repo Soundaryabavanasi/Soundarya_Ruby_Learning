@@ -24,7 +24,7 @@ describe 'Login and Logout Flow' do
     # Click logout button
     @driver.find_element(:css, 'a.button.secondary.radius').click
 
-    # Confirm logout success
+    # confirming whether the user is able to logout successfully
     logout_message = @driver.find_element(:css, '.flash.success').text
     expect(logout_message).to include('You logged out of the secure area!')
   end
