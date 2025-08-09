@@ -10,3 +10,19 @@ git rebase origin/main.  ## getting updates from the main bratch upto date
 
 
 ## testing
+
+##Pull request commands sub bratch
+
+## Make sure you're on the correct branch (like main or feature/login).
+git branch
+git status
+git add .
+git commit -m "Your message here"
+git push -u origin feature/your-feature-name
+git push
+
+
+## from main bratch
+git add .
+git commit -m "Your message here"
+git push origin main
