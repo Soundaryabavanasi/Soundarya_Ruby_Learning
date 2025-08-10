@@ -1,0 +1,62 @@
+# Logfile created on 2025-08-09 15:47:10 +0530 by logger.rb/v1.5.3
+I, [2025-08-09T15:47:10.159695 #93969]  INFO -- : Starting test suite
+I, [2025-08-09T15:47:18.449489 #93969]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:47:32.795772 #93969]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:47:33.841371 #93969]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:47:33.946307 #93969]  INFO -- : STEP: Entered Email
+I, [2025-08-09T15:47:34.258391 #93969]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:47:34.316263 #93969]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-09T15:47:35.035104 #93969]  INFO -- : STEP: Clicked Submit
+I, [2025-08-09T15:47:35.072367 #93969]  INFO -- : STEP: Verified Name in output
+I, [2025-08-09T15:47:35.144655 #93969]  INFO -- : STEP: Verified Email in output
+I, [2025-08-09T15:47:35.145056 #93969]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:47:35.146436 #93969]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-09T15:47:40.332729 #93969]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:47:41.033583 #93969]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:47:41.090430 #93969]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-09T15:47:41.133333 #93969]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:47:41.194223 #93969]  INFO -- : STEP: Entered Permanent Address
+E, [2025-08-09T15:47:43.000542 #93969] ERROR -- : Test failed: Demo Form Submission shows validation error for invalid email
+E, [2025-08-09T15:47:43.000937 #93969] ERROR -- : Screenshot saved to screenshot-shows_validation_error_for_invalid_email-20250809-154742.png
+I, [2025-08-09T15:47:43.206090 #93969]  INFO -- : Test suite finished
+I, [2025-08-09T15:54:42.436069 #94385]  INFO -- : Starting test suite
+I, [2025-08-09T15:54:48.774441 #94385]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:55:04.551583 #94385]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:55:05.781648 #94385]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:55:06.085978 #94385]  INFO -- : STEP: Entered Email
+I, [2025-08-09T15:55:06.230188 #94385]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:55:06.486693 #94385]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-09T15:55:07.605416 #94385]  INFO -- : STEP: Verified Name in output
+I, [2025-08-09T15:55:07.624168 #94385]  INFO -- : STEP: Verified Email in output
+I, [2025-08-09T15:55:07.624338 #94385]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:55:07.625948 #94385]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-09T15:55:12.896920 #94385]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:55:12.938901 #94385]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:55:12.978999 #94385]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-09T15:55:13.593574 #94385]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:55:13.711984 #94385]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-09T15:55:14.214021 #94385]  INFO -- : STEP: Clicked Submit
+I, [2025-08-09T15:55:14.273412 #94385]  INFO -- : STEP: Verified invalid email is not accepted
+I, [2025-08-09T15:55:14.275916 #94385]  INFO -- : Test passed: Demo Form Submission shows validation error for invalid email
+I, [2025-08-09T15:55:14.477545 #94385]  INFO -- : Test suite finished
+I, [2025-08-09T15:58:11.541948 #94661]  INFO -- : Starting test suite
+I, [2025-08-09T15:58:18.073313 #94661]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:58:34.294245 #94661]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:58:35.359231 #94661]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:58:35.637355 #94661]  INFO -- : STEP: Entered Email
+I, [2025-08-09T15:58:35.834990 #94661]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:58:35.895618 #94661]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-09T15:58:36.602089 #94661]  INFO -- : STEP: Clicked Submit
+I, [2025-08-09T15:58:36.644907 #94661]  INFO -- : STEP: Verified Name in output
+I, [2025-08-09T15:58:36.664751 #94661]  INFO -- : STEP: Verified Email in output
+I, [2025-08-09T15:58:36.664901 #94661]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-09T15:58:36.665584 #94661]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-09T15:58:44.213012 #94661]  INFO -- : STEP: Navigated to form page
+I, [2025-08-09T15:58:44.252591 #94661]  INFO -- : STEP: Entered Name
+I, [2025-08-09T15:58:44.291148 #94661]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-09T15:58:44.368679 #94661]  INFO -- : STEP: Entered Current Address
+I, [2025-08-09T15:58:44.904093 #94661]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-09T15:58:45.031126 #94661]  INFO -- : STEP: Clicked Submit
+I, [2025-08-09T15:58:45.059385 #94661]  INFO -- : STEP: Verified invalid email is not accepted
+I, [2025-08-09T15:58:45.059572 #94661]  INFO -- : Test passed: Demo Form Submission shows validation error for invalid email
+I, [2025-08-09T15:58:45.246238 #94661]  INFO -- : Test suite finished

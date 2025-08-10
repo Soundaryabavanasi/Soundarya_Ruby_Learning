@@ -1,0 +1,159 @@
+**Selenium Waits: Implicit, Explicit, and Fluent**
+
+---
+
+## 1. IMPLICIT WAIT
+
+
+
+Implicit Wait tells Selenium to wait for a certain amount of time when trying to find an element if it is not immediately available.
+
+> "Wait up to X seconds for any element to appear before throwing an error."
+
+### 🔗 Syntax Example:
+
+```ruby
+driver.manage.timeouts.implicit_wait = 10
+```
+
+### 📆 When and Why We Use:
+
+* Set it once in the beginning of the script.
+* Applies to all element searches.
+* Good for simple websites where elements take a little time to appear.
+
+### ⚠️ What Happens If Not Used:
+
+* If an element is not present instantly, Selenium will throw `NoSuchElementError`.
+
+### 🔥 When It Fails or Crashes:
+
+* If the element takes longer than the wait time to appear.
+* If used with dynamic conditions (e.g., visibility or clickability), it won’t help.
+
+---
+
+## 2. EXPLICIT WAIT
+
+###
+
+Explicit Wait tells Selenium to wait for a certain condition to occur before continuing with the test.
+
+ "Wait until a specific element is visible/clickable/present, up to a max time."
+
+### 🔗 Syntax Example:
+
+```ruby
+wait = Selenium::WebDriver::Wait.new(timeout: 10)
+wait.until { driver.find_element(:id, 'userName').displayed? }
+driver.find_element(:id, 'userName').send_keys("Soundarya")
+```
+
+### 📆 When and Why We Use:
+
+* Use when elements take time to appear or become usable.
+* Use only where needed (for specific actions).
+* Very useful in dynamic web pages, popups, and Ajax calls.
+
+### ⚠️ What Happens If Not Used:
+
+* If element loads late, your script might crash with visibility/click errors.
+
+### 🔥 When It Fails or Crashes:
+
+* TimeoutException if the condition is never true within the wait time.
+* Incorrect locator or condition also causes crash.
+
+---
+
+## 3. FLUENT WAIT
+
+### ✍️ Definition:
+
+Fluent Wait is like an advanced version of Explicit Wait, with more control over:
+
+* How long to wait
+* How often to check
+* What exceptions to ignore
+
+> "Keep checking every X seconds for a condition until timeout."
+
+### 🔗 Syntax Example:
+
+```ruby
+timeout = 15
+polling = 2. ## checking each 2 seconds to check whether the field is visible or not.
+end_time = Time.now + timeout   ## time.now means checking time from current time.
+
+while Time.now < end_time
+  begin
+    element = driver.find_element(:id, 'userName')
+    if element.displayed?
+      element.send_keys("Soundarya - Fluent Wait")
+      break
+    end
+  rescue Selenium::WebDriver::Error::NoSuchElementError
+    sleep polling
+  end
+end
+
+
+### 📆 When and Why We Use:
+
+* When the page is highly dynamic
+* Elements appear randomly or slowly
+* Need custom polling interval or exception handling
+
+### ⚠️ What Happens If Not Used:
+
+* May lead to flaky tests
+* Tests may fail if the element appears later than expected
+
+### 🔥 When It Fails or Crashes:
+
+* If element never appears, loop ends without performing the action
+* If incorrect exception is not handled, it may break
+
+---
+
+## 📅 Summary Table:
+
+| Wait Type     | Global? | Condition Based? | Custom Polling? | Use For                                  |
+| ------------- | ------- | ---------------- | --------------- | ---------------------------------------- |
+| Implicit Wait | ✅ Yes   | ❌ No             | ❌ No            | Simple waits for element to appear       |
+| Explicit Wait | ❌ No    | ✅ Yes            | ❌ No            | Specific conditions (visible, clickable) |
+| Fluent Wait   | ❌ No    | ✅ Yes            | ✅ Yes           | Dynamic elements, retry with polling     |
+
+---
+
+## 🔍 FAQs
+
+### Q: Should I use Implicit and Explicit together?
+
+❌ No. It's not recommended. They can interfere with each other.
+
+### Q: What happens if I don’t use any wait?
+
+❌ Selenium will instantly try to interact. If the element isn't ready, it crashes.
+
+### Q: Which wait is best?
+
+* **Implicit** for basic cases
+* **Explicit** for 90% of real-world cases
+* **Fluent** for advanced dynamic needs
+
+---
+
+Let me know if you want code examples with real site links!
+
+
+Feature	             Implicit Wait	                              Explicit Wait
+Scope	               Applies globally to all elements	            Applies to specific element/condition only
+Condition Control	   ✅ Waits for presence of element only	       ✅ Waits for custom conditions (clickable, visible, etc.)
+Flexibility	         ❌ Less control	                             ✅ More control
+Code Complexity	     ✅ Very simple (one line)	                   🔄 Slightly more code
+Use Case.            Use for simple/static pages	                Use for dynamic, slow-loading, AJAX-heavy pages
+Example.            Waits for any element	                        Waits for a specific condition
+
+
+

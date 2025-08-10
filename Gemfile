@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'faker'
-gem 'rspec'
-gem 'selenium-webdriver'
-
+gem 'selenium-webdriver', '~> 4.10.0'
+gem 'webdrivers', '~> 5.3'
+group :test do
+  gem 'rspec'
+end

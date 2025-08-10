@@ -1,8 +1,8 @@
-require 'bundler/setup'
-require 'selenium-webdriver'
-require 'webdrivers'
+require 'bundler/setup'.   ## Makes sure that all gems from your Gemfile are loaded properly.
+require 'selenium-webdriver'. ## This is the Selenium library for Ruby, used to control web browsers.
+require 'webdrivers' ## Automatically downloads and manages the correct version of the ChromeDriver (used to drive Chrome).
 
-puts "Starting automation..."
+puts "Starting automation..." 
 
 # Setup Chrome
 driver = Selenium::WebDriver.for :chrome
@@ -18,8 +18,6 @@ driver.find_element(:id, 'userEmail').send_keys('soundarya@example.com')
 driver.find_element(:id, 'currentAddress').send_keys('Kadapa, Andhra Pradesh')
 driver.find_element(:id, 'permanentAddress').send_keys('Hyderabad')
 
-# Optional: Remove iframes (ads)
-driver.execute_script("document.querySelectorAll('iframe').forEach(el => el.remove());")
 
 # Scroll and click the submit button
 submit_btn = driver.find_element(:id, 'submit')
@@ -30,4 +28,8 @@ submit_btn.click
 sleep 2  # See the result
 
 driver.quit
-puts "Test completed!"
+puts " completed!"
+
+
+
+## PON concept 

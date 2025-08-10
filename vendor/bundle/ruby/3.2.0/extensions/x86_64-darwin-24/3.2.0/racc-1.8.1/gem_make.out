@@ -1,0 +1,19 @@
+current directory: /Users/bramalinga/Documents/Automation_Learnings/Soundarya_Ruby_Learning-main/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+/Users/bramalinga/.rvm/rubies/ruby-3.2.2/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/bramalinga/Documents/Automation_Learnings/Soundarya_Ruby_Learning-main/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250809-87527-4ne9xu sitelibdir\=./.gem.20250809-87527-4ne9xu clean
+
+current directory: /Users/bramalinga/Documents/Automation_Learnings/Soundarya_Ruby_Learning-main/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250809-87527-4ne9xu sitelibdir\=./.gem.20250809-87527-4ne9xu
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+ld: warning: ignoring duplicate libraries: '-lruby.3.2'
+
+current directory: /Users/bramalinga/Documents/Automation_Learnings/Soundarya_Ruby_Learning-main/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250809-87527-4ne9xu sitelibdir\=./.gem.20250809-87527-4ne9xu install
+/usr/local/opt/coreutils/bin/ginstall -c -m 0755 cparse.bundle ./.gem.20250809-87527-4ne9xu/racc
+
+current directory: /Users/bramalinga/Documents/Automation_Learnings/Soundarya_Ruby_Learning-main/vendor/bundle/ruby/3.2.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20250809-87527-4ne9xu sitelibdir\=./.gem.20250809-87527-4ne9xu clean

@@ -1,0 +1,69 @@
+===============================
+ERROR: ChromeDriver Version Mismatch
+===============================
+
+Error Message:
+--------------
+Selenium::WebDriver::Error::SessionNotCreatedError:
+  session not created: This version of ChromeDriver only supports Chrome version 112
+  Current browser version is 138.0.7204.184 with binary path /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+Cause:
+------
+- Your installed Chrome browser version (138.x) is newer than your ChromeDriver version (supports only Chrome 112).
+- ChromeDriver must match the Chrome browser version to work correctly with Selenium.
+
+How to Fix:
+-----------
+1. Use the 'webdrivers' Ruby gem to automatically download and manage the compatible ChromeDriver version.
+
+2. Make sure your Gemfile includes:
+
+   gem 'webdrivers', '~> 5.3'
+
+3. Run bundle install or update:
+
+   bundle install
+   # or to update
+   bundle update webdrivers
+
+4. Require 'webdrivers' at the top of your test or helper files (before initializing Selenium):
+
+   require 'selenium-webdriver'
+   require 'webdrivers'       # Important: auto manages ChromeDriver versions
+   require 'rspec'
+
+5. Remove any manually installed ChromeDriver binaries from your PATH if you have them.
+
+6. Clear the 'webdrivers' cache to force download the latest compatible driver:
+
+   rm -rf ~/.webdrivers
+
+7. Run your tests again using:
+
+   bundle exec rspec spec/form_submission_spec.rb
+
+Additional Notes:
+-----------------
+- 'webdrivers' gem checks your Chrome browser version and downloads the matching ChromeDriver automatically.
+- Avoid manually downloading ChromeDriver unless absolutely necessary.
+
+Example snippet for your spec file:
+-----------------------------------
+require 'selenium-webdriver'
+require 'webdrivers'
+require 'rspec'
+
+RSpec.describe 'Demo Form Submission' do
+  before(:all) do
+    @driver = Selenium::WebDriver.for :chrome
+    @driver.manage.window.maximize
+    @driver.navigate.to 'https://demoqa.com/text-box'
+  end
+
+  # ... your tests ...
+end
+
+---
+
+This fix will solve the "session not created" error caused by ChromeDriver version mismatch.
