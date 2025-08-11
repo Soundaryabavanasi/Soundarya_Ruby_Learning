@@ -1,0 +1,8 @@
+[2025-08-10 18:31:05] Navigated to form page
+[2025-08-10 18:31:06] Entered Name
+[2025-08-10 18:31:06] Entered Email
+[2025-08-10 18:31:07] Entered Current Address
+[2025-08-10 18:31:07] Entered Permanent Address
+[2025-08-10 18:31:07] Clicked Submit
+[2025-08-10 18:31:07] Verified Name in output
+[2025-08-10 18:31:08] Verified Email in output

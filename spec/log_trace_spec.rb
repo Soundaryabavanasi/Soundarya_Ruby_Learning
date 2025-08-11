@@ -4,17 +4,20 @@ require 'logger'
 
 RSpec.describe 'Demo Form Submission' do
   before(:all) do
-    # Create logger writing to file 'test_steps.log'
     @logger = Logger.new('logsteps.log')
     @logger.level = Logger::INFO
-
     @logger.info("Starting test suite")
 
-    @driver = Selenium::WebDriver.for :chrome
-    @driver.manage.window.maximize
+    options = Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--disable-popup-blocking')
+    options.add_argument('--start-maximized')
+
+    @driver = Selenium::WebDriver.for :chrome, options: options
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10) # explicit wait
   end
 
   after(:all) do
+    sleep 3 # keep browser open briefly after tests
     @driver.quit if @driver
     @logger.info("Test suite finished")
     @logger.close
@@ -40,9 +43,28 @@ RSpec.describe 'Demo Form Submission' do
     @logger.info("STEP: #{step_description}")
   end
 
+  def hide_ads
+    begin
+      ad = @driver.find_element(:id, 'adplus-anchor')
+      @driver.execute_script("arguments[0].style.display = 'none';", ad)
+      log_step("Hidden floating ad overlay")
+    rescue Selenium::WebDriver::Error::NoSuchElementError
+      # No ad found, continue
+    end
+  end
+
+  def safe_click(element)
+    @driver.execute_script("arguments[0].scrollIntoView(true);", element)
+    sleep 0.5
+    @driver.execute_script("arguments[0].click();", element)
+  end
+
   fit 'submits form successfully and validates output' do
     @driver.navigate.to 'https://demoqa.com/text-box'
+    @wait.until { @driver.find_element(:id, 'userName').displayed? }
     log_step("Navigated to form page")
+
+    hide_ads
 
     @driver.find_element(:id, 'userName').send_keys('Soundarya')
     log_step("Entered Name")
@@ -56,13 +78,16 @@ RSpec.describe 'Demo Form Submission' do
     @driver.find_element(:id, 'permanentAddress').send_keys('Hyderabad')
     log_step("Entered Permanent Address")
 
-    @driver.find_element(:id, 'submit').click
+    submit_btn = @driver.find_element(:id, 'submit')
+    safe_click(submit_btn)
     log_step("Clicked Submit")
 
+    @wait.until { @driver.find_element(:id, 'name').text.include?('Soundarya') }
     output_name = @driver.find_element(:id, 'name').text
     expect(output_name).to include('Soundarya')
     log_step("Verified Name in output")
 
+    @wait.until { @driver.find_element(:id, 'email').text.include?('soundarya@example.com') }
     output_email = @driver.find_element(:id, 'email').text
     expect(output_email).to include('soundarya@example.com')
     log_step("Verified Email in output")
@@ -70,7 +95,10 @@ RSpec.describe 'Demo Form Submission' do
 
   it 'shows validation error for invalid email' do
     @driver.navigate.to 'https://demoqa.com/text-box'
+    @wait.until { @driver.find_element(:id, 'userName').displayed? }
     log_step("Navigated to form page")
+
+    hide_ads
 
     @driver.find_element(:id, 'userName').send_keys('Soundarya')
     log_step("Entered Name")
@@ -84,7 +112,8 @@ RSpec.describe 'Demo Form Submission' do
     @driver.find_element(:id, 'permanentAddress').send_keys('Hyderabad')
     log_step("Entered Permanent Address")
 
-    @driver.find_element(:id, 'submit').click
+    submit_btn = @driver.find_element(:id, 'submit')
+    safe_click(submit_btn)
     log_step("Clicked Submit")
 
     output = @driver.find_element(:id, 'output').text

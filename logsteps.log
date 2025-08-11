@@ -41,3 +41,94 @@ I, [2025-08-10T18:14:40.063993 #8430]  INFO -- : Starting test suite
 I, [2025-08-10T18:14:45.248520 #8430]  INFO -- : Test suite finished
 I, [2025-08-10T18:15:41.413299 #9015]  INFO -- : Starting test suite
 I, [2025-08-10T18:15:46.633260 #9015]  INFO -- : Test suite finished
+I, [2025-08-10T18:21:51.521655 #15741]  INFO -- : Starting test suite
+I, [2025-08-10T18:21:57.704356 #15741]  INFO -- : Test suite finished
+I, [2025-08-10T18:23:36.772709 #15936]  INFO -- : Starting test suite
+I, [2025-08-10T18:23:45.872988 #15936]  INFO -- : Test suite finished
+I, [2025-08-10T18:24:26.167295 #16151]  INFO -- : Starting test suite
+I, [2025-08-10T18:25:00.098419 #16151]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:25:22.044944 #16151]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:25:22.590771 #16151]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:25:23.115555 #16151]  INFO -- : STEP: Entered Email
+I, [2025-08-10T18:25:23.535639 #16151]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:25:23.601509 #16151]  INFO -- : STEP: Entered Permanent Address
+E, [2025-08-10T18:25:25.454340 #16151] ERROR -- : Test failed: Demo Form Submission submits form successfully and validates output
+E, [2025-08-10T18:25:25.454510 #16151] ERROR -- : Screenshot saved to screenshot-submits_form_successfully_and_validates_output-20250810-182524.png
+I, [2025-08-10T18:25:25.455353 #16151]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:25:28.474388 #16151]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:25:28.509585 #16151]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:25:28.546798 #16151]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-10T18:25:28.600137 #16151]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:25:30.184008 #16151]  INFO -- : STEP: Entered Permanent Address
+E, [2025-08-10T18:25:32.525304 #16151] ERROR -- : Test failed: Demo Form Submission shows validation error for invalid email
+E, [2025-08-10T18:25:32.525416 #16151] ERROR -- : Screenshot saved to screenshot-shows_validation_error_for_invalid_email-20250810-182531.png
+I, [2025-08-10T18:25:35.733193 #16151]  INFO -- : Test suite finished
+I, [2025-08-10T18:27:11.069815 #16485]  INFO -- : Starting test suite
+I, [2025-08-10T18:27:16.737491 #16485]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:27:31.458689 #16485]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:27:31.475610 #16485]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:27:32.640439 #16485]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:27:32.858906 #16485]  INFO -- : STEP: Entered Email
+I, [2025-08-10T18:27:33.262510 #16485]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:27:33.320744 #16485]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:27:33.913478 #16485]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:27:33.965834 #16485]  INFO -- : STEP: Verified Name in output
+I, [2025-08-10T18:27:34.149269 #16485]  INFO -- : STEP: Verified Email in output
+I, [2025-08-10T18:27:34.149431 #16485]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:27:34.150251 #16485]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:27:39.175680 #16485]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:27:39.185751 #16485]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:27:39.227053 #16485]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:27:39.320259 #16485]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-10T18:27:39.392559 #16485]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:27:39.437417 #16485]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:27:39.973728 #16485]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:27:39.997163 #16485]  INFO -- : STEP: Verified invalid email is not accepted
+I, [2025-08-10T18:27:39.997332 #16485]  INFO -- : Test passed: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:27:43.198745 #16485]  INFO -- : Test suite finished
+I, [2025-08-10T18:31:28.746132 #17020]  INFO -- : Starting test suite
+I, [2025-08-10T18:31:34.286147 #17020]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:31:50.722188 #17020]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:31:50.739089 #17020]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:31:51.671339 #17020]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:31:52.282511 #17020]  INFO -- : STEP: Entered Email
+I, [2025-08-10T18:31:52.500471 #17020]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:31:52.649885 #17020]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:31:53.245356 #17020]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:31:53.295204 #17020]  INFO -- : STEP: Verified Name in output
+I, [2025-08-10T18:31:53.323605 #17020]  INFO -- : STEP: Verified Email in output
+I, [2025-08-10T18:31:53.323946 #17020]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:31:53.324974 #17020]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:32:08.714969 #17020]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:32:08.724454 #17020]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:32:08.777943 #17020]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:32:09.586878 #17020]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-10T18:32:09.628797 #17020]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:32:09.674924 #17020]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:32:10.201182 #17020]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:32:10.239135 #17020]  INFO -- : STEP: Verified invalid email is not accepted
+I, [2025-08-10T18:32:10.239540 #17020]  INFO -- : Test passed: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:32:13.469637 #17020]  INFO -- : Test suite finished
+I, [2025-08-10T18:32:28.774528 #17778]  INFO -- : Starting test suite
+I, [2025-08-10T18:32:33.808962 #17778]  INFO -- : Starting test: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:32:51.316825 #17778]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:32:51.333807 #17778]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:32:51.887283 #17778]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:32:52.387167 #17778]  INFO -- : STEP: Entered Email
+I, [2025-08-10T18:32:52.544927 #17778]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:32:52.606145 #17778]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:32:53.194196 #17778]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:32:53.237300 #17778]  INFO -- : STEP: Verified Name in output
+I, [2025-08-10T18:32:53.265132 #17778]  INFO -- : STEP: Verified Email in output
+I, [2025-08-10T18:32:53.265450 #17778]  INFO -- : Test passed: Demo Form Submission submits form successfully and validates output
+I, [2025-08-10T18:32:53.267055 #17778]  INFO -- : Starting test: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:33:08.890865 #17778]  INFO -- : STEP: Navigated to form page
+I, [2025-08-10T18:33:08.899338 #17778]  INFO -- : STEP: Hidden floating ad overlay
+I, [2025-08-10T18:33:08.950047 #17778]  INFO -- : STEP: Entered Name
+I, [2025-08-10T18:33:08.994575 #17778]  INFO -- : STEP: Entered invalid Email
+I, [2025-08-10T18:33:09.620730 #17778]  INFO -- : STEP: Entered Current Address
+I, [2025-08-10T18:33:09.758962 #17778]  INFO -- : STEP: Entered Permanent Address
+I, [2025-08-10T18:33:10.302556 #17778]  INFO -- : STEP: Clicked Submit
+I, [2025-08-10T18:33:10.327117 #17778]  INFO -- : STEP: Verified invalid email is not accepted
+I, [2025-08-10T18:33:10.327356 #17778]  INFO -- : Test passed: Demo Form Submission shows validation error for invalid email
+I, [2025-08-10T18:33:13.532312 #17778]  INFO -- : Test suite finished
