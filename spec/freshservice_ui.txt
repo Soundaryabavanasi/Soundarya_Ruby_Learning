@@ -1,0 +1,103 @@
+UI Flow Documentation – Freshservice Tickets
+1. Ticket Creation Flow
+Objective: Automate the process of creating a new support ticket.
+
+Steps:
+
+Login
+
+Navigate to the Freshservice login page.
+
+Enter valid credentials (email & password).
+
+Click Login and wait for dashboard to load.
+
+Navigate to Ticket Creation
+
+From the top navigation bar, click New or New Ticket button.
+
+Fill Ticket Details
+
+Requester: Select from dropdown or enter requester email/name.
+
+Subject: Enter ticket subject.
+
+Description: Fill in the ticket description field (supports rich text).
+
+Priority: Choose from dropdown (Low, Medium, High, Urgent).
+
+Category: Select relevant category/subcategory.
+
+Attachments: (Optional) Upload a file if required.
+
+Submit Ticket
+
+Click Save or Create button.
+
+Wait for confirmation that ticket is created (ticket detail page should appear with ticket ID).
+
+Validation
+
+Confirm ticket ID is generated.
+
+Verify the subject & requester match entered values.
+
+2. Ticket Update Flow
+Objective: Automate updating an existing ticket’s details.
+
+Steps:
+
+Login (reuse same flow from ticket creation).
+
+Open Ticket
+
+Go to Tickets module from navigation.
+
+Search by ticket ID or subject.
+
+Click to open ticket details page.
+
+Edit Ticket
+
+Click Edit or directly modify fields in ticket view.
+
+Update Priority, Category, or Description as needed.
+
+Add an internal note or public reply.
+
+Save Changes
+
+Click Update or Save button.
+
+Wait for confirmation message or success toast.
+
+Validation
+
+Reopen ticket and verify updated values are reflected.
+
+3. Ticket Validation Flow
+Objective: Automate checks to confirm that tickets match expected data after actions.
+
+Steps:
+
+Access Ticket
+
+Navigate to ticket details page.
+
+Verify Fields
+
+Ensure Requester, Subject, Description, Priority, Category, and Status match expected values.
+
+If SLA is applicable, check Due Date is set correctly.
+
+Activity Log Check
+
+Open ticket’s activity or history tab.
+
+Confirm updates are logged with correct timestamp and user.
+
+Attachments & Notes
+
+Validate uploaded attachments exist.
+
+Verify internal/public notes are recorded.
