@@ -1,5 +1,6 @@
 require 'selenium-webdriver'
 require 'rspec'
+require 'bundler/setup'
 require 'dotenv/load'
 require_relative '../pages/login_page'
 require_relative '../pages/ticket_page'

@@ -5,3 +5,4 @@ gem 'webdrivers', '~> 5.3'
 group :test do
   gem 'rspec'
 end
+gem 'dotenv'

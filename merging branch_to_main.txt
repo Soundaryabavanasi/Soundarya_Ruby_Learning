@@ -1,0 +1,31 @@
+Git Branch Merge & Pull Request Guide
+1. Push Your Branch to GitHub
+Before merging, ensure your branch exists on GitHub:
+ git branch # Check current branch
+ git checkout branch-name # Switch to your branch
+ git push origin branch-name # Push branch to GitHub
+2. Update 'main' Locally
+Switch to 'main' and pull latest changes:
+ git checkout main
+ git pull origin main
+3. Merge Your Branch into 'main' (Optional - Direct Merge via CLI)
+ git merge branch-name
+ git push origin main
+Note: This skips the review process. Use only if you are sure.
+4. Create a Pull Request on GitHub
+Steps:
+ 1. Go to your repository on GitHub.
+ 2. Click 'Compare & Pull Request'.
+ 3. Set base branch to 'main' and compare branch to your branch.
+ 4. Add a title and description.
+ 5. Click 'Create Pull Request'.
+ 6. Review changes and click 'Merge Pull Request'.
+5. Delete the Branch After Merge (Optional)
+ git branch -d branch-name
+ git push origin --delete branch-name
+Example:
+ git push origin feature/login
+ git checkout main
+ git pull origin main
+ git merge feature/login
+ git push origin main
