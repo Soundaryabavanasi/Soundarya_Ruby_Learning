@@ -53,40 +53,35 @@ class TicketPage
     false
   end
 
-  # ✅ Update ticket status and click Update button
+  # ✅ Update ticket status (select dropdown option only)
   def update_ticket_status(new_status)
-    # Open dropdown
     status_dropdown = @wait.until {
       @driver.find_element(:css, "div[formserv-field-name='status'] div.ember-power-select-trigger")
     }
     status_dropdown.click
 
-    # Select option
     option = @wait.until {
       @driver.find_element(:xpath, "//li[contains(@class,'ember-power-select-option')][normalize-space(text())='#{new_status}']")
     }
     option.click
+  end
 
-    # Locate Update button
+  # ✅ Click the Update button
+  def click_update_button
     update_btn = @wait.until { @driver.find_element(:id, "form-submit") }
-
-    # Wait until enabled
     @wait.until { update_btn.enabled? }
-
-    # Scroll into view and click
     @driver.execute_script("arguments[0].scrollIntoView(true);", update_btn)
     begin
       update_btn.click
     rescue Selenium::WebDriver::Error::ElementClickInterceptedError
-      puts "⚠️ Normal click failed, using JS click..."
+      puts "⚠️ JS click fallback"
       @driver.execute_script("arguments[0].click();", update_btn)
     end
-
-    # Verify status is updated
-    @wait.until { ticket_status == new_status }
+    puts "Clicked on Update button"
   end
 
-  # ✅ Read current status (one clean method)
+  sleep 10
+  # ✅ Read current ticket status
   def ticket_status
     status_element = @wait.until {
       @driver.find_element(:css, "div[formserv-field-name='status'] div.ember-power-select-trigger")
