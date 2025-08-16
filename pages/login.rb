@@ -1,20 +1,51 @@
-require 'selenium-webdriver'
-
 class LoginPage
   def initialize(driver)
     @driver = driver
-    @email_field = { id: 'username' }        # Change to actual Freshservice email input locator
-    @password_field = { id: 'password' }     # Change to actual Freshservice password input locator
-    @login_button = { name: 'login' }        # Change to actual Freshservice login button locator
+    @wait = Selenium::WebDriver::Wait.new(timeout: 10)
   end
 
-  def open
-    @driver.navigate.to "freshworkshelpdesk527-695210703739135957.myfreshworks.com"
+  def open(url)
+    @driver.get(url)
   end
 
   def login(email, password)
-    @driver.find_element(@email_field).send_keys(email)
-    @driver.find_element(@password_field).send_keys(password)
-    @driver.find_element(@login_button).click
+  # Find iframe that contains 'login' or 'sign in', not reCAPTCHA
+  iframes = @driver.find_elements(:tag_name, 'iframe')
+
+  login_iframe = iframes.find do |frame|
+    frame_name = frame.attribute('name').to_s.downcase
+    frame_src = frame.attribute('src').to_s.downcase
+    frame_id   = frame.attribute('id').to_s.downcase
+
+    (frame_name.include?('login') || frame_src.include?('login') || frame_id.include?('login')) &&
+      !frame_src.include?('recaptcha')
   end
+
+  # Switch to login iframe only if found
+  if login_iframe
+    puts "Switching to login iframe: #{login_iframe.attribute('name') || login_iframe.attribute('id')}"
+    @driver.switch_to.frame(login_iframe)
+  else
+    puts "No specific login iframe found. Staying in main page."
+  end
+
+  # Wait for email field
+  email_field = @wait.until do
+    @driver.find_element(:css, 'input[type="email"], #user_session_email, #email')
+  end
+  email_field.clear
+  email_field.send_keys(email)
+
+  # Fill password
+  password_field = @driver.find_element(:css, 'input[type="password"], #user_session_password, #password')
+  password_field.clear
+  password_field.send_keys(password)
+
+  # Click login
+  @driver.find_element(:css, 'input[type="submit"], button[type="submit"]').click
+
+  # Switch back
+  @driver.switch_to.default_content
+end
+
 end

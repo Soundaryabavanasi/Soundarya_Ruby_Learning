@@ -3,36 +3,102 @@ require 'selenium-webdriver'
 class TicketPage
   def initialize(driver)
     @driver = driver
-    @new_ticket_button = { css: '.new-ticket-btn' }
-    @subject_field = { id: 'ticket_subject' }
-    @description_field = { id: 'ticket_description' }
-    @submit_ticket_button = { css: '.submit-ticket-btn' }
-    @ticket_list = { css: '.ticket-list' }
-    @status_dropdown = { css: '.ticket-status' }
-    @save_status_button = { css: '.save-status' }
+    @wait = Selenium::WebDriver::Wait.new(timeout: 15)
   end
 
   def open_new_ticket_form
-    @driver.find_element(@new_ticket_button).click
+    plus_icon = @wait.until { @driver.find_element(:css, 'svg#add-new-icon[aria-label="Add New"]') }
+    plus_icon.click
+
+    ticket_option = @wait.until {
+      @driver.find_element(:xpath, "//div[@class='nav_new_details esm']/span[text()='Ticket']/ancestor::a")
+    }
+    ticket_option.click
+
+    @wait.until { @driver.find_element(:css, "input[name='ticket[subject]']") }
   end
 
-  def create_ticket(subject, description)
-    @driver.find_element(@subject_field).send_keys(subject)
-    @driver.find_element(@description_field).send_keys(description)
-    @driver.find_element(@submit_ticket_button).click
+  def fill_ticket_description(description)
+    editor = @wait.until { @driver.find_element(:css, "div.fr-element.fr-view[contenteditable='true']") }
+    @driver.execute_script("arguments[0].scrollIntoView(true);", editor)
+    editor.click
+    editor.send_keys(description)
   end
 
-  def ticket_exists?(subject)
-    @driver.find_element(@ticket_list).text.include?(subject)
+  def create_ticket(requester, subject, description)
+    requester_field = @wait.until {
+      @driver.find_element(:xpath, "//input[contains(@class,'ember-power-select-search-input') and @placeholder='Search']")
+    }
+    requester_field.send_keys(requester)
+    sleep 1
+    requester_field.send_keys(:enter)
+
+    subject_field = @wait.until { @driver.find_element(:css, "input[name='ticket[subject]']") }
+    subject_field.send_keys(subject)
+
+    fill_ticket_description(description)
+
+    save_button = @wait.until { @driver.find_element(:css, "button[type='submit']") }
+    save_button.click
+
+    sleep 5
   end
 
-  def update_ticket_status(status)
-    dropdown = @driver.find_element(@status_dropdown)
-    Selenium::WebDriver::Support::Select.new(dropdown).select_by(:text, status)
-    @driver.find_element(@save_status_button).click
+  def ticket_exists?(expected_subject)
+    subject_element = @wait.until {
+      @driver.find_element(:css, "input[name='ticket[subject]'], h1.ticket-subject")
+    }
+    subject_element.attribute('value') == expected_subject || subject_element.text == expected_subject
+  rescue Selenium::WebDriver::Error::TimeoutError
+    false
   end
 
+  # ✅ Update ticket status and click Update button
+  def update_ticket_status(new_status)
+    # Open dropdown
+    status_dropdown = @wait.until {
+      @driver.find_element(:css, "div[formserv-field-name='status'] div.ember-power-select-trigger")
+    }
+    status_dropdown.click
+
+    # Select option
+    option = @wait.until {
+      @driver.find_element(:xpath, "//li[contains(@class,'ember-power-select-option')][normalize-space(text())='#{new_status}']")
+    }
+    option.click
+
+    # Locate Update button
+    update_btn = @wait.until { @driver.find_element(:id, "form-submit") }
+
+    # Wait until enabled
+    @wait.until { update_btn.enabled? }
+
+    # Scroll into view and click
+    @driver.execute_script("arguments[0].scrollIntoView(true);", update_btn)
+    begin
+      update_btn.click
+    rescue Selenium::WebDriver::Error::ElementClickInterceptedError
+      puts "⚠️ Normal click failed, using JS click..."
+      @driver.execute_script("arguments[0].click();", update_btn)
+    end
+
+    # Verify status is updated
+    @wait.until { ticket_status == new_status }
+  end
+
+  # ✅ Read current status (one clean method)
   def ticket_status
-    @driver.find_element(@status_dropdown).text
+    status_element = @wait.until {
+      @driver.find_element(:css, "div[formserv-field-name='status'] div.ember-power-select-trigger")
+    }
+    status_element.text.strip
+  end
+
+  def validate_ticket_landing_page
+    new_ticket_btn = @wait.until { @driver.find_element(:css, "button[title='New Ticket']") }
+    raise "New Ticket button not found — likely not on ticket landing page" unless new_ticket_btn.displayed?
+
+    ticket_list = @driver.find_elements(:css, ".ticket-list-item")
+    raise "No tickets found or not on ticket page" if ticket_list.empty?
   end
 end
