@@ -6,3 +6,5 @@ group :test do
   gem 'rspec'
 end
 gem 'dotenv'
+gem 'rest-client'
+gem 'json'

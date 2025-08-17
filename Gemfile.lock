@@ -2,10 +2,26 @@ GEM
   remote: https://rubygems.org/
   specs:
     diff-lcs (1.6.2)
+    domain_name (0.6.20240107)
     dotenv (3.1.8)
+    http-accept (1.7.0)
+    http-cookie (1.0.8)
+      domain_name (~> 0.5)
+    json (2.13.2)
+    logger (1.7.0)
+    mime-types (3.7.0)
+      logger
+      mime-types-data (~> 3.2025, >= 3.2025.0507)
+    mime-types-data (3.2025.0812)
+    netrc (0.11.0)
     nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
     racc (1.8.1)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.4.1)
     rspec (3.13.1)
       rspec-core (~> 3.13.0)
@@ -36,6 +52,8 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  json
+  rest-client
   rspec
   selenium-webdriver (~> 4.10.0)
   webdrivers (~> 5.3)

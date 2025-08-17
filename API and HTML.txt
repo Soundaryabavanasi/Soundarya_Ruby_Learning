@@ -1,0 +1,130 @@
+REST API & HTTP Concepts
+1. REST API
+REST (Representational State Transfer) is an architectural style for building web services. A REST API allows clients (browsers, apps, or scripts) to interact with servers over HTTP.
+
+Key Principles:
+
+Works with resources identified by URLs (endpoints).
+
+Stateless: each request contains all necessary info.
+
+Uses HTTP methods to perform actions.
+
+Commonly returns data in JSON or XML.
+
+Example Endpoint: https://api.example.com/users
+
+HTTP Method	Endpoint	Action
+GET	/users	Fetch all users
+POST	/users	Create a new user
+GET	/users/1	Fetch user with ID 1
+PUT	/users/1	Update user 1 completely
+PATCH	/users/1	Update user 1 partially
+DELETE	/users/1	Delete user 1
+
+2. HTTP Methods
+HTTP methods define what action you want to perform on a resource.
+
+Method	Purpose	Example
+GET	Retrieve/read resource	GET /users
+POST	Create resource	POST /users with payload { "name": "John" }
+PUT	Update resource fully	PUT /users/1 with payload { "name": "John Doe" }
+PATCH	Update resource partially	PATCH /users/1 with payload { "name": "Johnny" }
+DELETE	Remove resource	DELETE /users/1
+
+3. HTTP Status Codes
+HTTP status codes indicate the result of a request.
+
+Code Range	   Type	                Meaning
+1xx	       Informational	       Request received, processing
+2xx	       Success	               Request succeeded
+3xx	       Redirection	           Resource moved or redirecting
+4xx	       Client Error	           Invalid request or permissions
+5xx	       Server Error	           Server failed to process request
+
+Common Codes:
+
+200 OK → Request succeeded.
+
+201 Created → Resource successfully created.
+
+204 No Content → Request succeeded, no response body.
+
+400 Bad Request → Invalid client request.
+
+401 Unauthorized → Authentication failed.
+
+403 Forbidden → Access denied.
+
+404 Not Found → Resource not found.
+
+500 Internal Server Error → Server-side failure.
+
+4. HTTP Headers
+Headers are key-value pairs sent in the request or response, providing metadata.
+
+Request Headers Examples:
+
+Content-Type: application/json → Request body format is JSON.
+
+Authorization: Bearer <token> → Authentication token.
+
+Response Headers Examples:
+
+Content-Type: application/json → Response format is JSON.
+
+Cache-Control: no-cache → Caching instructions.
+
+5. Payload / Body
+The payload is the actual data sent in a request (for POST, PUT, PATCH) or received in a response.
+
+Example POST Request Payload:
+
+json
+Copy
+Edit
+POST /users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "age": 30
+}
+Example JSON Response Payload:
+
+json
+Copy
+Edit
+{
+  "id": 1,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "age": 30
+}
+6. Example Workflow
+Create a new user
+
+Request: POST /users with JSON payload { "name": "John Doe", "email": "john@example.com" }
+
+Response: 201 Created + JSON with user ID.
+
+Fetch user details
+
+Request: GET /users/1
+
+Response: 200 OK + JSON { "id": 1, "name": "John Doe", "email": "john@example.com" }
+
+Update user details
+
+Request: PUT /users/1 with JSON { "name": "John Smith" }
+
+Response: 200 OK + JSON { "id": 1, "name": "John Smith" }
+
+Delete user
+
+Request: DELETE /users/1
+
+Response: 204 No Content
+
+This document is concise, beginner-friendly, and can be used as a quick reference for REST API basics.
