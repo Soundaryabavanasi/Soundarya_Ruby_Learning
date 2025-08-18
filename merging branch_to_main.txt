@@ -37,5 +37,5 @@ Example:
  Ex: git branch (check you current brantch)
  git add .
 git commit -m "Describe your changes here"
-git push origin feature/login(add correct branch name)
+git push origin freshservice-tests (add correct branch name)
 
