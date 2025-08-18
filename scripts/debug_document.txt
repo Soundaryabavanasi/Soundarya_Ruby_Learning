@@ -106,3 +106,4 @@ n → go line by line
 p user → see the value of user
 
 c → let it continue till end
+
