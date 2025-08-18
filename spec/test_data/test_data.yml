@@ -1,0 +1,12 @@
+posts:
+  - title: "First Post"
+    body: "This is the first body"
+    userId: 1
+
+  - title: "Second Post"
+    body: "This is another body"
+    userId: 2
+
+  - title: "Third Post"
+    body: "More content here"
+    userId: 3

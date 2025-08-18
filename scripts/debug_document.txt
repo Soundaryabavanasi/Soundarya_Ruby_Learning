@@ -1,0 +1,108 @@
+■ Ruby Debugging Setup & Usage Guide (Mac +
+VSCode)
+1■■ Install Ruby Debugger (rdbg)
+Ruby >= 3.1 comes with debug gem built-in.
+If not installed, run:
+gem install debug
+Verify installation:
+rdbg -v
+
+2■■ Install VSCode & Ruby Plugins
+- Install Visual Studio Code
+- Add extensions:
+• Ruby (Peng Lv or Shopify Ruby LSP)
+• Ruby Debug
+
+3■■ Configure Debugging in VSCode
+In your project, create or open `.vscode/launch.json` and add:
+{
+"version": "0.2.0",
+"configurations": [
+{
+"type": "rdbg",
+"name": "Debug current file with rdbg",
+"request": "launch",
+"script": "${file}",
+"args": [],
+"askParameters": true
+},
+{
+"type": "rdbg",
+"name": "Attach with rdbg",
+"request": "attach"
+}
+]
+}
+
+4■■ Run & Debug Scripts
+Option A: From Terminal
+rdbg scripts/debug_steps.rb
+Option B: From VSCode
+- Open file (e.g., debug_steps.rb)
+- Place a breakpoint (F9)
+Press F5 to start debugging
+
+
+5■■ rdbg Commands (Terminal Debugger)
+b 7 → set breakpoint at line 7
+c → continue execution
+s → step into method
+n → step over method
+fin → run until method returns
+p var → print variable value
+info locals → list local variables
+bt → show call stack (backtrace)
+q → quit debugger
+
+
+6■■ VSCode Debug Shortcuts (Mac)
+Toggle breakpoint → F9 (or Cmd+B)
+Start / Continue → F5
+Step Over → F10
+Step Into → F11
+Step Out → Shift+F11
+Stop Debugging → Shift+F5
+
+■ If your Mac doesn’t have Fn row: use Fn+key or remap in VSCode Keyboard Shortcuts
+7■■ Example Debugging Flow
+File: scripts/debug_steps.rb
+def greet(name)
+message = "Hello, #{name}!"
+puts message
+return message
+end
+def main
+user = "Soundarya"
+greet(user)
+end
+main
+Steps:
+1. Run: rdbg scripts/debug_steps.rb
+2. Set breakpoint: b 2
+3. Continue: c
+4. Inspect: p variable name ex:(message) from debug_steps.rb
+→ "Soundarya"
+5. Step next: n
+6. Continue until exit: c
+
+
+
+
+
+Run debugger:
+
+rdbg scripts/debug_steps.rb
+
+At (rdbg) prompt, use:
+b 9 - break 
+s → step inside greet when it’s called
+
+c - continue
+
+n → go line by line
+
+
+
+p user → see the value of user
+
+c → let it continue till end
