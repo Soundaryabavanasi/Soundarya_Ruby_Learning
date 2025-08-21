@@ -1,0 +1,92 @@
+
+Refactoring a method name means renaming it everywhere it is used without changing the logic of the program.
+VSCode provides tools like Rename Symbol, Search & Replace, and Code Navigation to make this safe and productive.
+
+🛠 Methods for Refactoring
+1. Rename Symbol (Preferred)
+
+Best when your Ruby project is set up with a language server (e.g., Ruby LSP).
+
+Steps:
+
+Place your cursor on the method name (e.g., add_numbers).
+
+Press F2 (or right-click → Rename Symbol).
+
+Enter the new name (e.g., sum).
+
+Press Enter → VSCode updates the definition and all references.
+
+ Safer than global search because it only renames code symbols, not comments or unrelated text.
+
+2. Search & Replace
+
+Best when you want full control over all matches.
+
+Steps:
+
+Open global search with Ctrl + Shift + F (Windows/Linux) or Cmd + Shift + F (Mac).
+
+Search for the old method name (e.g., add_numbers).
+
+Click the small arrow next to the search box to open the Replace field.
+
+Type the new method name (e.g., sum).
+
+Use one of the replace options:
+
+Replace All in All Files → replaces everywhere in the project.
+
+Replace in One File → hover over the file name and click replace.
+
+Replace One Occurrence → expand matches, replace individually.
+
+Always review matches first to avoid renaming text inside comments or strings unintentionally.
+
+ Code Navigation for Productivity
+ Go to Definition (F12)
+
+Jump directly from a method call to where it is defined.
+
+Example: From calc.add_numbers → VSCode jumps to def add_numbers.
+
+Benefit: Saves time searching across files.
+
+Find All References (Shift + F12)
+
+Shows every place a method is used in your project.
+
+Benefit: Confirms you renamed all references during refactor.
+
+Example Before and After
+
+Before:
+
+class Calculator
+  def add_numbers(a, b)
+    a + b
+  end
+end
+
+calc = Calculator.new
+puts calc.add_numbers(2, 3)
+
+
+After (renamed to sum):
+
+class Calculator
+  def sum(a, b)
+    a + b
+  end
+end
+
+calc = Calculator.new
+puts calc.sum(2, 3)
+
+ Benefits of Using VSCode Tools
+
+Confidence: No missed references.
+
+Speed: Jump instantly to definitions or usages.
+
+Accuracy: Avoids accidental replacements in comments or documentation.
