@@ -20,4 +20,5 @@ module Locators
   CHANGE_FIELDS_BTN       = "//div[@class='new-card-item']//div[text()='Change Fields']/ancestor::a"
   CHANGE_CUSTOM_TEXT_FIELD = "//span[@class='ficon-sr_text dom-icon tooltip' and @data-original-title='Single Line Text']"
   CHANGE_CUSTOM_TEXT_LABEL = "//input[@name='custom-label']"
+   CHANGE_FIELD_LABEL_VALUE = 'li[data-type="text"] span'
 end

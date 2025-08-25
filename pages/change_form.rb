@@ -47,10 +47,6 @@ class AdminPage
   end
 end
 
-
-
-
-
   def open_field_manager
     @wait.until { @driver.find_element(:xpath, FIELD_MANAGER) }.click
     puts "Field Manager opened successfully"
@@ -67,7 +63,7 @@ end
     @driver.find_element(:id, 'custom-fields')
   }
   # Find the Text field (data-type="text")
-  text_field = field_list.find_element(:css, 'li[data-type="text"] span')
+  text_field = field_list.find_element(:css, CHANGE_FIELD_LABEL_VALUE)
 # Click the field
   text_field.click
   sleep 2
@@ -82,14 +78,39 @@ end
 end
 
 def click_done_button
-  # Wait for the Done button to be visible and clickable
-  done_button = @wait.until {
-    @driver.find_element(:id, 'PropsSubmitBtn')
-  }
+  # Wait for the modal itself to be visible
+  @wait.until { @driver.find_element(:id, "CustomPropsModal").displayed? }
 
-  # Click the Done button
-  done_button.click
+  # Ensure the footer and button are present
+  done_button = @wait.until do
+    btn = @driver.find_element(:id, "PropsSubmitBtn")
+    btn if btn.displayed? && btn.enabled?
+  end
+
+  # Scroll into view (sometimes needed inside modals)
+  @driver.execute_script("arguments[0].scrollIntoView(true);", done_button)
+
+  # Debug: print state
+  puts "Displayed? #{done_button.displayed?}, Enabled? #{done_button.enabled?}, Value: #{done_button.attribute("value")}"
+
+  # Trigger a real DOM click event
+  @driver.execute_script(<<~JS, done_button)
+    arguments[0].dispatchEvent(new MouseEvent('click', {
+      bubbles: true, cancelable: true, view: window
+    }));
+  JS
+
   puts "Done button clicked"
+end
+sleep 10
+
+# save form
+def save_form
+  @driver.switch_to.default_content
+  wait = Selenium::WebDriver::Wait.new(timeout: 15)
+
+  save_button = wait.until { @driver.find_element(:id, "save_itil_fields") }
+  @driver.execute_script("arguments[0].click();", save_button)
 end
 
 end
