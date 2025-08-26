@@ -16,36 +16,29 @@ class AdminPage
     sleep 2
   end
 
-  
-## switching to local workspace if current workspace is in global
+  # Switching to local workspace if current workspace is global
   def switch_from_global_to_first_workspace
-  # Get the current workspace text without clicking
-  current_workspace = @wait.until { 
-    @driver.find_element(:css, '#admin-page-header .ws-name.ellipsis')
-  }.text.strip
+    current_workspace = @wait.until { 
+      @driver.find_element(:css, '#admin-page-header .ws-name.ellipsis')
+    }.text.strip
 
-  puts "Current workspace: #{current_workspace}"
+    puts "Current workspace: #{current_workspace}"
 
-  # Only switch if current workspace is "Global Settings"
-  if current_workspace == "Global Settings"
-    puts "Current workspace is Global Settings. Switching to first available workspace..."
+    if current_workspace == "Global Settings"
+      puts "Switching to first available workspace..."
+      @wait.until { @driver.find_element(:xpath, WORKSPACE_SWITCHER) }.click
+      sleep 1
 
-    ## click on the button
-     @wait.until { @driver.find_element(:xpath, WORKSPACE_SWITCHER) }.click
-    sleep 1
-
-    ## get the list
-    first_workspace = @wait.until { 
-      @driver.find_element(:css, 'div#created-workspaces div.active-workspaces a:not(.selected-ws)') 
-    }
-    first_workspace_name = first_workspace.attribute('data-name')
-    first_workspace.click
-
-    puts "Switched to workspace: #{first_workspace_name}"
-  else
-    puts "Already in workspace: #{current_workspace}. No switch needed."
+      first_workspace = @wait.until { 
+        @driver.find_element(:css, 'div#created-workspaces div.active-workspaces a:not(.selected-ws)') 
+      }
+      first_workspace_name = first_workspace.attribute('data-name')
+      first_workspace.click
+      puts "Switched to workspace: #{first_workspace_name}"
+    else
+      puts "Already in workspace: #{current_workspace}. No switch needed."
+    end
   end
-end
 
   def open_field_manager
     @wait.until { @driver.find_element(:xpath, FIELD_MANAGER) }.click
@@ -58,60 +51,76 @@ end
     puts "Change Fields clicked"
   end
 
-  def click_text_field
-  field_list = @wait.until {
-    @driver.find_element(:id, 'custom-fields')
-  }
-  # Find the Text field (data-type="text")
-  text_field = field_list.find_element(:css, CHANGE_FIELD_LABEL_VALUE)
-# Click the field
-  text_field.click
-  sleep 2
-  # Wait for the input field to appear
-  field_input = @wait.until { @driver.find_element(:xpath, CHANGE_CUSTOM_TEXT_LABEL) }
-  # Clear existing value and send new value
-  field_input.clear
-  field_input.send_keys("Text Custom field")
-  puts "Value added to the field"
+  # Creating two custom fields under planning fields
+  def add_two_custom_fields_and_done
+    2.times do |i|
+      # Step 1: Click "Add new field"
+      add_field_li = @wait.until do
+        el = @driver.find_element(:css, "li.field.new-planning-field span.tooltip")
+        el if el.text.strip == "Add new field" && el.displayed?
+      end
+      add_field_li.click
+      puts "Clicked 'Add new field' ##{i + 1}"
 
-  sleep 10
-end
+      # Step 2: Wait for input field to appear
+      field_input = @wait.until do
+        el = @driver.find_element(:css, "input[name='custom-label']")
+        el if el.displayed? && el.enabled?
+      end
 
-def click_done_button
-  # Wait for the modal itself to be visible
-  @wait.until { @driver.find_element(:id, "CustomPropsModal").displayed? }
+      # Step 3: Enter unique value
+      field_input.clear
+      field_input.send_keys("CustomField_#{Time.now.to_i}_#{i}")
+      puts "Entered value for field ##{i + 1}"
 
-  # Ensure the footer and button are present
-  done_button = @wait.until do
-    btn = @driver.find_element(:id, "PropsSubmitBtn")
-    btn if btn.displayed? && btn.enabled?
+      # Step 4: Click the Done button (your actual Done button)
+      done_button = @wait.until do
+        el = @driver.find_element(:id, "PropsSubmitBtn")
+        el if el.displayed? && el.enabled?
+      end
+      @driver.execute_script("arguments[0].scrollIntoView(true);", done_button)
+      @driver.execute_script("arguments[0].click();", done_button)
+      puts "Clicked Done for field ##{i + 1}"
+
+      sleep 1
+    end
   end
 
-  # Scroll into view (sometimes needed inside modals)
-  @driver.execute_script("arguments[0].scrollIntoView(true);", done_button)
+  def click_input_save_button
+    puts "⏳ Waiting for <input Save> button..."
+    save_input = @wait.until do
+      el = @driver.find_element(:css, "input.save-custom-form.btn.btn-primary")
+      el if el.displayed?
+    end
 
-  # Debug: print state
-  puts "Displayed? #{done_button.displayed?}, Enabled? #{done_button.enabled?}, Value: #{done_button.attribute("value")}"
+    puts "Found input Save button: value='#{save_input.attribute("value")}'"
+    @driver.execute_script("arguments[0].scrollIntoView(true);", save_input)
+    @driver.execute_script("arguments[0].click();", save_input)
+    puts "Input Save button clicked"
 
-  # Trigger a real DOM click event
-  @driver.execute_script(<<~JS, done_button)
-    arguments[0].dispatchEvent(new MouseEvent('click', {
-      bubbles: true, cancelable: true, view: window
-    }));
-  JS
+    # Handle confirm popup if it appears
+    begin
+      confirm_wait = Selenium::WebDriver::Wait.new(timeout: 5)
+      confirm_btn = confirm_wait.until do
+        el = @driver.find_element(:id, "confirm_popup_for_tkt-submit")
+        el if el.displayed?
+      end
+      puts "Confirm popup appeared. Clicking confirm..."
+      @driver.execute_script("arguments[0].click();", confirm_btn)
+      puts "Confirm button clicked"
+    rescue Selenium::WebDriver::Error::TimeoutError
+      puts "ℹ No confirm popup appeared. Skipping..."
+    end
+  end
 
-  puts "Done button clicked"
+  def go_back_workspace
+    field_manager_link = @wait.until do
+      el = @driver.find_element(:css, "a.settings-page-link")
+      el if el.displayed?
+    end
+
+    @driver.execute_script("arguments[0].scrollIntoView(true);", field_manager_link)
+    field_manager_link.click
+    puts "Clicked Field Manager link successfully"
+  end
 end
-sleep 10
-
-# save form
-def save_form
-  @driver.switch_to.default_content
-  wait = Selenium::WebDriver::Wait.new(timeout: 15)
-
-  save_button = wait.until { @driver.find_element(:id, "save_itil_fields") }
-  @driver.execute_script("arguments[0].click();", save_button)
-end
-
-end
-
