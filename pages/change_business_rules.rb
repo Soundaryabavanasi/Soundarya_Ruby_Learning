@@ -8,7 +8,7 @@ class ChangeBusinessRules
     @wait   = Selenium::WebDriver::Wait.new(timeout: 10) # define here once
   end
 
-  def create_change_business_rule
+  def create_change_business_rule(field_name)
     # Click Admin
     btn = @wait.until { @driver.find_element(:xpath, ADMIN_BTN) }
     @driver.execute_script("arguments[0].scrollIntoView(true);", btn)
@@ -70,16 +70,41 @@ class ChangeBusinessRules
   @wait.until { @driver.find_element(:xpath, "//div[@class='select2-drop']//div[text()='New Form']") }.click
 
   # ---------- CONDITIONS ----------
-  @driver.find_element(:id, "businessrule_filter_btn").click
-  # Wait for first condition row (freshservice renders dropdowns inside .filter-list)
-  field_dropdown = @wait.until { @driver.find_element(:css, "div.filter-list .filter-component select.field") }
-  Selenium::WebDriver::Support::Select.new(field_dropdown).select_by(:text, "Impact")
+  
+  # Step 1: Click "Add new condition" link
+  add_condition_link = @wait.until do
+    el = @driver.find_element(:id, "businessrule_filter_btn")
+    el if el.displayed? && el.enabled?
+  end
+  @driver.execute_script("arguments[0].scrollIntoView(true);", add_condition_link)
+  add_condition_link.click
+  puts "Clicked 'Add new condition'"
 
-  operator_dropdown = @driver.find_element(:css, "div.filter-list .filter-component select.operator")
-  Selenium::WebDriver::Support::Select.new(operator_dropdown).select_by(:text, "is")
+  # Step 2: Wait for the dropdown/options to appear and select "Change Forms"
+  change_forms_option = @wait.until do
+    el = @driver.find_element(:xpath, "//div[contains(@class,'select2-drop')]//div[text()='Change Forms']")
+    el if el.displayed? && el.enabled?
+  end
+  change_forms_option.click
+  puts "Selected 'Change Forms' option"
 
-  value_dropdown = @driver.find_element(:css, "div.filter-list .filter-component select.value")
-  Selenium::WebDriver::Support::Select.new(value_dropdown).select_by(:text, "High")
+  # Select a field from Change Forms dropdown
+  # Wait for the visible dropdown
+
+  dropdown = @wait.until do
+    el = @driver.find_element(:css, "div.filter-dropdown[style*='display: block']")
+    el if el.displayed?
+  end
+
+  # Locate the field
+  field_li = @wait.until do
+    el = dropdown.find_element(:xpath, ".//li[text()='#{field_name}']")
+    el if el.displayed? && el.enabled?
+  end
+
+  @driver.execute_script("arguments[0].scrollIntoView(true);", field_li)
+  field_li.click
+  puts "Selected field: #{field_name}"
 
   # ---------- ACTIONS ----------
   @driver.find_element(:id, "businessrule_action_btn").click
@@ -97,6 +122,42 @@ class ChangeBusinessRules
   puts "Business Rule '#{rule_name}' created successfully!"
 end
 
+# Make Custom Fields Mandatory
+
+def create_business_rule_mandatory_custom_fields(rule_name, description, custom_fields)
+  # Fill name and description
+  @wait.until { @driver.find_element(:id, "rule_name") }.send_keys(rule_name)
+  @driver.find_element(:id, "rule_description").send_keys(description)
+
+  # Click "Add new condition"
+  add_condition_btn = @wait.until { @driver.find_element(:id, "businessrule_filter_btn") }
+  add_condition_btn.click
+  puts "Clicked 'Add new condition'"
+
+  # Select 'Change Forms'
+  change_forms_option = @wait.until { @driver.find_element(:xpath, "//div[contains(@class,'select2-drop')]//div[text()='Change Forms']") }
+  change_forms_option.click
+  puts "Selected 'Change Forms'"
+
+  # Select each custom field dynamically
+  custom_fields.each do |field|
+    select_field_from_change_forms(field)
+    # Optionally mark as mandatory by clicking the checkbox/icon if available
+    mandatory_checkbox = @wait.until { 
+      @driver.find_element(:xpath, "//li[text()='#{field}']/following-sibling::li//input[@type='checkbox']") rescue nil
+    }
+    if mandatory_checkbox
+      mandatory_checkbox.click
+      puts "Marked '#{field}' as mandatory"
+    end
+  end
+
+  # Save the Business Rule
+  save_btn = @wait.until { @driver.find_element(:id, "PropsSubmitBtn") }
+  @driver.execute_script("arguments[0].scrollIntoView(true);", save_btn)
+  save_btn.click
+  puts "Business Rule '#{rule_name}' created successfully"
+end
 
 
 end
